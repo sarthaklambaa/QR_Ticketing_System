@@ -39,8 +39,8 @@ python main.py
 ```
 
 ## Connect with me
-Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/sarthaklambaa/).
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/sarthaklambaa/). <br>
 For any inquiries or suggestions, you can reach out to me via email: samlamba29@gmail.com.
 
-I welcome your feedback and contributions to enhance this QR Ticketing System.
+I welcome your feedback and contributions to enhance this QR Ticketing System.<br>
 Happy coding!!
