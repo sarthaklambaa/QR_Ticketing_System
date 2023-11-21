@@ -50,9 +50,6 @@
             box-sizing: border-box;
         }
 
-        input[type="date"] {
-            /* Additional styles for date input if needed */
-        }
 
         @media only screen and (max-width: 600px) {
             form {
@@ -71,20 +68,21 @@
         <a href="#">About</a>
         <a href="#">Contact</a>
     </nav>
-    <form action="get" name="main_form">
+    <form action="/" method="post" name="main_form">
         <label for="f_name">First Name</label>
-        <input type="text" id="f_name" required>
+        <input type="text" id="f_name" name="f_name" required>
         
         <label for="l_name">Last Name</label>
-        <input type="text" id="l_name" required>
+        <input type="text" id="l_name" name="l_name" required>
         
         <label for="dob">Date of Birth</label>
-        <input type="date" id="dob" required>
+        <input type="date" id="dob" name="dob" required>
         
         <label for="phone_number">Phone Number</label>
-        <input type="tel" id="phone_number" required>
+        <input type="tel" id="phone_number" name="phone_number" required>
         
         <button type="submit">Submit</button>
+    </form>
     </form>
 </body>
 </html>
