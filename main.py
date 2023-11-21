@@ -35,6 +35,10 @@ def get_data():
     data = FormData.query.all()
     return render_template("get_data.html", data=data)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
