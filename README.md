@@ -35,11 +35,10 @@ cd QR_Ticketing_System
 
 # Install dependencies
 pip install -r requirements.txt
-```
 
-## Running the application
 # Run the application
 `python app.py`
+```
 
 ## Connect with me
 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/sarthaklambaa/).
