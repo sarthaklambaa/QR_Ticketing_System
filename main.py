@@ -65,16 +65,24 @@ def download_pdf(ticket_id):
 
 def generate_pdf(ticket_id, filename):
     pdf_path = os.path.join(app.root_path, filename)
-    c = canvas.Canvas(pdf_path)
+    c = canvas.Canvas(pdf_path, pagesize=letter)
+
+    # Set font for the title
+    c.setFont("Helvetica-Bold", 16)
+    # Add title to the PDF
+    c.drawCentredString(letter[0] / 2, letter[1] - 50, "QR TICKETING SYSTEM")
+
+    # Set font for the content
+    c.setFont("Helvetica", 12)
 
     # Get form data for the specific ticket_id
     form_data = FormData.query.filter_by(ticket_id=ticket_id).first()
 
     if form_data:
-        c.drawString(100, 750, f"Ticket ID: {form_data.ticket_id}")
-        c.drawString(100, 730, f"Name: {form_data.f_name} {form_data.l_name}")
-        c.drawString(100, 710, f"DOB: {form_data.dob.strftime('%Y-%m-%d')}")
-        c.drawString(100, 690, f"Phone Number: {form_data.phone_number}")
+        c.drawString(100, 700, f"Ticket ID: {form_data.ticket_id}")
+        c.drawString(100, 680, f"Name: {form_data.f_name} {form_data.l_name}")
+        c.drawString(100, 660, f"DOB: {form_data.dob.strftime('%Y-%m-%d')}")
+        c.drawString(100, 640, f"Phone Number: {form_data.phone_number}")
 
         img_path = f"static/qrcodes/{form_data.ticket_id}.png"
         if os.path.exists(img_path):
@@ -83,10 +91,15 @@ def generate_pdf(ticket_id, filename):
             aspect_ratio = img_width / img_height
             img_width = 100
             img_height = img_width / aspect_ratio
-            c.drawInlineImage(img_path, 100, 660 - img_height, width=img_width, height=img_height)
+            c.drawInlineImage(img_path, 100, 600 - img_height, width=img_width, height=img_height)
 
-        c.showPage()
-        c.save()
+    # Add footer with contact information
+    c.setFont("Helvetica", 10)
+    c.drawCentredString(letter[0] / 2, 30, "Made by Sarthak Lamba")
+    c.drawCentredString(letter[0] / 2, 15, "Contact: samlamba29@gmail.com | LinkedIn: linkedin.com/in/sarthaklambaa")
+
+    c.showPage()
+    c.save()
 
     return pdf_path
 
