@@ -19,12 +19,10 @@ Check out the live project [here](https://qr-ticketing-system.onrender.com/). Ex
 1. Clone the repository: `git clone https://github.com/your-username/QR_Ticketing_System.git`
 2. Navigate to the project directory: `cd QR_Ticketing_System`
 3. Install dependencies: `pip install -r requirements.txt`
-4. Run the application: `python app.py`
+4. Run the application: `python main.py`
 5. Access the application in your web browser at `http://localhost:5000`
 
-## Source Code
-
-### Installation
+## Installation
 
 ```bash
 # Clone the repository
@@ -37,7 +35,7 @@ cd QR_Ticketing_System
 pip install -r requirements.txt
 
 # Run the application
-`python app.py`
+python main.py
 ```
 
 ## Connect with me
