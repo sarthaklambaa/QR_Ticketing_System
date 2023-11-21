@@ -5,13 +5,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Ticketing System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="date"] {
+            /* Additional styles for date input if needed */
+        }
+
+        @media only screen and (max-width: 600px) {
+            form {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>QR Ticketing System</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Events</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
     <form action="get" name="main_form">
-        <input type="text" id="f_name">First Name <br>
-        <input type="text" id="l_name">Last Name <br>
-        <input type="date" id="dob">Date of Birth <br> 
-        <input type="text" id="phone_number">Phone Number <br>
+        <label for="f_name">First Name</label>
+        <input type="text" id="f_name" required>
+        
+        <label for="l_name">Last Name</label>
+        <input type="text" id="l_name" required>
+        
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" required>
+        
+        <label for="phone_number">Phone Number</label>
+        <input type="tel" id="phone_number" required>
+        
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>
