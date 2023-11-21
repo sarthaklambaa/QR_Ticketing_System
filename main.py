@@ -21,24 +21,31 @@ class FormData(db.Model):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    error = None
+
     if request.method == 'POST':
         f_name = request.form['f_name']
         l_name = request.form['l_name']
-        dob = datetime.strptime(request.form['dob'], '%Y-%m-%d').date()
+        dob = request.form['dob']
         phone_number = request.form['phone_number']
 
-        ticket_id = generate_ticket_id()
+        # Check for missing fields
+        if not f_name or not l_name or not dob or not phone_number:
+            error = "All fields are mandatory. Please fill in all the required information."
+        elif len(phone_number) > 10:
+            error = "Phone number cannot be longer than 10 digits"
+        else:
+            ticket_id = generate_ticket_id()
 
-        form_data = FormData(ticket_id=ticket_id, f_name=f_name, l_name=l_name, dob=dob, phone_number=phone_number)
+            form_data = FormData(ticket_id=ticket_id, f_name=f_name, l_name=l_name, dob=dob, phone_number=phone_number)
 
-        db.session.add(form_data)
-        db.session.commit()
+            db.session.add(form_data)
+            db.session.commit()
 
-        generate_qr_code(ticket_id, f_name, l_name, dob)
-        # return redirect(url_for('get_data'))
-        return render_template("success.html", ticket_id=ticket_id)
-    return render_template("index.html")
+            generate_qr_code(ticket_id, f_name, l_name, dob)
+            return render_template("success.html", ticket_id=ticket_id)
 
+    return render_template("index.html", error=error)
 def generate_ticket_id():
     random_id = ''.join(random.choices(string.digits, k=10))
     return random_id
