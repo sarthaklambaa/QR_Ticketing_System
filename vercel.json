@@ -1,0 +1,23 @@
+{
+    "name": "qr_ticketing_system",
+    "version": 2,
+    "builds": [
+      { "src": "*.py", "use": "@vercel/python" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/" }
+    ],
+    "env": {
+      "SQLALCHEMY_DATABASE_URI": "sqlite:///qr_ticketing.db"
+    },
+    "functions": {
+      "api/index.py": {
+        "runtime": "vercel-python@0.24.0",
+        "memory": 128
+      }
+    },
+    "database": {
+      "type": "sqlite"
+    }
+  }
+  
