@@ -21,31 +21,29 @@ class FormData(db.Model):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    error = None
-
     if request.method == 'POST':
         f_name = request.form['f_name']
         l_name = request.form['l_name']
-        dob = request.form['dob']
+        dob = datetime.strptime(request.form['dob'], '%Y-%m-%d').date()
         phone_number = request.form['phone_number']
 
-        # Check for missing fields
-        if not f_name or not l_name or not dob or not phone_number:
-            error = "All fields are mandatory. Please fill in all the required information."
-        elif len(phone_number) > 10:
-            error = "Phone number cannot be longer than 10 digits"
-        else:
-            ticket_id = generate_ticket_id()
+        # Validate phone number length
+        if len(phone_number) > 10:
+            return render_template("index.html", error="Phone number cannot be longer than 10 digits")
 
-            form_data = FormData(ticket_id=ticket_id, f_name=f_name, l_name=l_name, dob=dob, phone_number=phone_number)
+        ticket_id = generate_ticket_id()
 
-            db.session.add(form_data)
-            db.session.commit()
+        form_data = FormData(ticket_id=ticket_id, f_name=f_name, l_name=l_name, dob=dob, phone_number=phone_number)
 
-            generate_qr_code(ticket_id, f_name, l_name, dob)
-            return render_template("success.html", ticket_id=ticket_id)
+        db.session.add(form_data)
+        db.session.commit()
 
-    return render_template("index.html", error=error)
+        generate_qr_code(ticket_id, f_name, l_name, dob)
+        # return redirect(url_for('get_data'))
+        return render_template("success.html", ticket_id=ticket_id)
+    
+    return render_template("index.html")
+
 def generate_ticket_id():
     random_id = ''.join(random.choices(string.digits, k=10))
     return random_id
@@ -71,8 +69,13 @@ def download_pdf(ticket_id):
     return send_file(pdf_path, as_attachment=True)
 
 def generate_pdf(ticket_id, filename):
-    pdf_path = os.path.join(app.root_path, filename)
+
+    pdf_dir = os.path.join(app.root_path, "pdf")
+    os.makedirs(pdf_dir, exist_ok=True)
+
+    pdf_path = os.path.join(pdf_dir, filename)  # Use pdf_dir here instead of app.root_path
     c = canvas.Canvas(pdf_path, pagesize=letter)
+
 
     # Set font for the title
     c.setFont("Helvetica-Bold", 16)
